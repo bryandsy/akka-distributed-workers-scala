@@ -69,7 +69,7 @@ class FrontEnd extends Actor with ActorLogging with Timers {
   }
 
   def sendWork(work: Work): Unit = {
-    implicit val timeout = Timeout(5.seconds)
+    implicit val timeout: Timeout = Timeout(5.seconds)
     (masterProxy ? work).recover {
       case _ => NotOk
     } pipeTo self
