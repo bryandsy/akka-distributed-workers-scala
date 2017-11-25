@@ -3,7 +3,7 @@ package worker
 import java.util.UUID
 import java.util.concurrent.ThreadLocalRandom
 
-import akka.actor.{Actor, ActorLogging, Cancellable, Props, Timers}
+import akka.actor.{Actor, ActorLogging, ActorRef, Cancellable, Props, Timers}
 import akka.pattern._
 import akka.util.Timeout
 
@@ -26,7 +26,7 @@ class FrontEnd extends Actor with ActorLogging with Timers {
   import FrontEnd._
   import context.dispatcher
 
-  val masterProxy = context.actorOf(
+  val masterProxy: ActorRef = context.actorOf(
     MasterSingleton.proxyProps(context.system),
     name = "masterProxy")
 
